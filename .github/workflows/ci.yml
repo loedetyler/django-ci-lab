@@ -1,7 +1,12 @@
+# .github/workflows/ci.yml
+
 name: CI
 
 on:
-  workflow_dispatch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
@@ -10,10 +15,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    
-    - name: Check docker version
-      uses: docker version
 
+    - name: Check Docker version
+      run: docker version
+      
     - name: Build Docker Image
       run: docker compose up -d --build
 
